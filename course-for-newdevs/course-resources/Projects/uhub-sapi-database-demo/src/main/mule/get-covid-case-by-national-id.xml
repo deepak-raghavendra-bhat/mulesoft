@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="get:\cases\(nationalID):uhub-sapi-config">
+		<http:listener doc:name="Listener" doc:id="82c61a05-b943-4380-8186-287ce25460a9" config-ref="HTTP_Listener_config" path="v1/cases/{nationalID}" allowedMethods="GET">
+			<http:response statusCode="#[vars.statusCode]" />
+		</http:listener>
+		<ee:transform doc:name="Set correlationId And transactionId" doc:id="4a1bf230-f4ea-4d0b-8a9b-e5860610ca31" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="correlationId" ><![CDATA[attributes.headers.'x-correlation-id' default ""]]></ee:set-variable>
+				<ee:set-variable variableName="transactionId" ><![CDATA[attributes.headers.'x-transaction-id' default uuid()]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<logger level="INFO" doc:name="Start Log" doc:id="6922dcc8-b566-413e-b48f-ec78ab9f625c" message='transactionID: #[vars.transactionId]], correlationID: #[vars.correlationId], message: "Started get covid case by national id flow"' />
+		<set-variable value="#[attributes.uriParams.nationalID]" doc:name="Set nationalID" doc:id="988eb1cb-5f43-4935-835c-cdcb9ea6d40d" variableName="nationalID"/>
+		<db:select doc:name="Select Case by NationalID" doc:id="084045b1-fe21-4159-b895-ce35888973b3" config-ref="Uhub_Database_Config">
+			<db:sql><![CDATA[select case_id, source, case_type, first_name, last_name, phone, email, date_of_birth, national_id, national_id_type, street_address, city, state, postal, country, create_date, update_date from cvd_case_master where national_id = :national_id]]></db:sql>
+			<db:input-parameters><![CDATA[#[{
+	national_id: vars.nationalID
+}]]]></db:input-parameters>
+		</db:select>
+		<choice doc:name="Choice" doc:id="18bf43d0-cf17-4c33-8ea4-8df8cfc3c9a6" >
+			<when expression="#[sizeOf(payload) &gt; 0]">
+				<ee:transform doc:name="Set Success Response" doc:id="dcd11b94-1d59-4271-bd36-aeaae298fc52">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload map (covidCase, indexOfCovidCase) -> {
+	caseID: covidCase.case_id,
+    source: covidCase.source,
+    caseType: covidCase.case_type,
+    firstName: covidCase.first_name,
+    lastName: covidCase.last_name,
+    phone: covidCase.phone,
+    email: covidCase.email,
+    dateOfBirth: covidCase.date_of_birth as String {format: "yyyy-MM-dd"},
+    nationalID: covidCase.national_id,
+    nationalIDType: covidCase.national_id_type,
+    address: {
+      streetAddress: covidCase.street_address,
+      city: covidCase.city,
+      state: covidCase.state,
+      postal: covidCase.postal,
+      country: covidCase.country
+    },
+    createDate: covidCase.create_date as String {format: "yyyy-MM-dd"},
+    updateDate: covidCase.update_date as String {format: "yyyy-MM-dd"}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Set Not Found Response" doc:id="52fd4b16-997a-497e-9f3a-3a65254590d9" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"code": 404,
+	"message": "Resource not found",
+	"description": "The server has not found anything matching the Request-URI",
+	"dateTime": now() as String { format: "yyyy-MM-dd'T'HH:mm:ss'Z'" },
+	"transactionId": vars.transactionId
+}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="statusCode" ><![CDATA[404]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="End Log" doc:id="8f1f1e11-b349-448a-8af6-8c62cb68027e" message='transactionID: #[vars.transactionId]], correlationID: #[vars.correlationId], message: Completed get covid case by national id flow, payload: #[payload]"' />
+    
+</flow>
+	</mule>

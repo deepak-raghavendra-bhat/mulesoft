@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="covidCase">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="caseID" type="xs:unsignedByte" minOccurs="1"/>
+        <xs:element name="source" type="xs:string" minOccurs="1"/>
+        <xs:element name="caseType" type="xs:string" minOccurs="1"/>
+        <xs:element name="firstName" type="xs:string" minOccurs="1"/>
+        <xs:element name="lastName" type="xs:string" minOccurs="1"/>
+        <xs:element name="phone" type="xs:string" minOccurs="1"/>
+        <xs:element name="email" type="xs:string" minOccurs="0"/>
+        <xs:element name="dateOfBirth" type="xs:date" minOccurs="1"/>
+        <xs:element name="nationalID" type="xs:string" minOccurs="1"/>
+        <xs:element name="nationalIDType" type="xs:string" minOccurs="1"/>
+        <xs:element name="address">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="streetAddress" type="xs:string" minOccurs="1"/>
+              <xs:element name="city" type="xs:string" minOccurs="1"/>
+              <xs:element name="state" type="xs:string" minOccurs="1"/>
+              <xs:element name="postal" type="xs:unsignedShort" minOccurs="1"/>
+              <xs:element name="country" type="xs:string" minOccurs="1"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
