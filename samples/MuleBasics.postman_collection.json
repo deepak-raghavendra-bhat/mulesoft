@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "f8b272d8-22c4-4bde-a740-6669445d09c5",
+		"name": "MuleBasics",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26782913"
+	},
+	"item": [
+		{
+			"name": "Read-JSON",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"1111\",\r\n    \"name\":\"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/mule-msg/read-json",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"mule-msg",
+						"read-json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read-queryparams",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/mule-msg/read-queryparams?id=testqp&name=testname",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"mule-msg",
+						"read-queryparams"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "testqp"
+						},
+						{
+							"key": "name",
+							"value": "testname"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read-Header",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "id",
+						"value": "test",
+						"description": "sample header id",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8082/mule-msg/read-header",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"mule-msg",
+						"read-header"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read-XML",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<root>\r\n<id>2222</id>\r\n<name>test</name>\r\n</root>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/mule-msg/read-xml",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"mule-msg",
+						"read-xml"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read-uriparam",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/mule-msg/read-uriparam/testuriid",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"mule-msg",
+						"read-uriparam",
+						"testuriid"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "testqp",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "testname",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

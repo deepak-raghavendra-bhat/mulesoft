@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="read-uriparamFlow" doc:id="205bfb16-d9a3-4445-ab66-08b9db3590da" >
+		<http:listener doc:name="Listener" doc:id="59446e7d-7b59-4988-b1d0-3ee2dae121b5" config-ref="HTTP_Listener_config" path="/read-uriparam/{id}" allowedMethods="GET"/>
+		<logger level="INFO" doc:name="Logger" doc:id="2f725ed2-c683-4f0b-954c-fb89092496d7" message="#[attributes.uriParams.id]"/>
+	</flow>
+</mule>
