@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="read-xmlFlow-paramheaders" doc:id="94ad93ac-4220-41ba-9e86-86ec2aacbc47" >
+		<http:listener doc:name="Listener" doc:id="bc448bb7-fdb8-4ce9-b31f-7d131857d501" config-ref="HTTP_Listener_config" path="/read-xml-param-headers/{maha}" allowedMethods="GET"/>
+		<logger level="INFO" doc:name="Logger" doc:id="2d821132-7ffb-46cd-845f-aca0264d1668" message="#[attributes.queryParams.qpvalue]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="d30c786a-9482-4653-984a-9759b189b09b" message="#[attributes.headers.'x-transaction-id']"/>
+		<logger level="INFO" doc:name="Logger" doc:id="c4431b03-ad10-44a4-af9b-17cbab11fbbe" message="#[attributes.uriParams.maha]"/>
+	</flow>
+</mule>
