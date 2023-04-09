@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="Set-header-restResponseFlow" doc:id="3670de71-6a10-4f46-a003-b470cd94b6b4" >
+		<http:listener doc:name="Listener" doc:id="0092185c-976b-4205-af63-055c3cff6217" config-ref="HTTP_Listener_config" path="/rest-header" allowedMethods="GET">
+			<http:response statusCode="200" reasonPhrase='"SUCCESS"' >
+				<http:body ><![CDATA["Success"]]></http:body>
+			</http:response>
+		</http:listener>
+		<logger level="INFO" doc:name="Logger" doc:id="71268b95-0e07-45ad-9175-b44e77149cb3" message="#[payload]"/>
+	</flow>
+</mule>
