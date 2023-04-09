@@ -93,6 +93,51 @@
 			"response": []
 		},
 		{
+			"name": "Read-XML-with headers-params",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-transaction-id",
+						"value": "4545",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<root>\r\n<id set=\"xxxxx\">2222</id>\r\n<name>test</name>\r\n</root>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/mule-msg/read-xml-param-headers/maha?qpvalue=9999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"mule-msg",
+						"read-xml-param-headers",
+						"maha"
+					],
+					"query": [
+						{
+							"key": "qpvalue",
+							"value": "9999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Read-XML",
 			"request": {
 				"method": "POST",
@@ -151,6 +196,38 @@
 						}
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "set-Variable",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "why-VariablesNeeded",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Rest-Headers-Static",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "RestResponse-header-dynamic",
+			"request": {
+				"method": "GET",
+				"header": []
 			},
 			"response": []
 		}
