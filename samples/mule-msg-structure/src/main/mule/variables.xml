@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	<file:config name="File_Config" doc:name="File Config" doc:id="77758b54-57e7-4df4-a8c8-62ff3f5318de" />
+	<flow name="variablesFlow" doc:id="e373a8be-8e8a-435c-9edf-f92fba977a2f" >
+		<http:listener doc:name="Listener" doc:id="59d448ea-a511-4b5c-8469-69cdb52b21b3" config-ref="HTTP_Listener_config" path="/variables/{myVar}" allowedMethods="GET"/>
+		<set-variable value="#[attributes.uriParams.myVar]" doc:name="Set Variable" doc:id="354db70e-3269-4774-a05f-a2981c21fb7c" variableName="myVar"/>
+		<logger level="INFO" doc:name="Logger" doc:id="ab2814c4-c066-4631-be36-69bf3f319c38" message="#[vars.myVar]"/>
+	</flow>
+	<flow name="variablesFlow-Files" doc:id="82b1ffce-d3d2-470d-bfe3-2e9a4ae4d680" >
+		<http:listener doc:name="Listener" doc:id="d00ab2ea-10b9-45fa-aade-ca07363d619e" config-ref="HTTP_Listener_config" path="/whyVariables" allowedMethods="POST" />
+		<set-variable value="#[payload]" doc:name="Set Variable" doc:id="3e2641cc-25aa-4d98-9b6a-c683046792d1" variableName="myVar" />
+		<logger level="INFO" doc:name="Logger-PayloadBefore" doc:id="fabe72a8-302c-4995-8711-6b833066598a" message="#[payload]"/>
+		<logger level="INFO" doc:name="Logger-varBefore" doc:id="0a379141-6bf8-49b7-b3d8-5445b0edc13a" message="#[vars.myVar]" />
+		<file:read doc:name="Read" doc:id="920c02d4-cfe8-491c-9367-306bb6271dca" config-ref="File_Config" path="C:\softwares_dee_learning\repositories-github\GitHub\mulesoft\samples\mule-msg-structure\files-demo\file.txt"/>
+		<logger level="INFO" doc:name="Logger-VarAfter" doc:id="63df2331-e5e8-458b-bdb3-211ff85d177c" message="#[vars.myVar]" />
+		<logger level="INFO" doc:name="Logger-PayloadAfter" doc:id="6f449d82-b1e1-4eb8-82b0-07220ebdd1b6" message="#[payload]" />
+	</flow>
+</mule>
