@@ -230,6 +230,34 @@
 				"header": []
 			},
 			"response": []
+		},
+		{
+			"name": "json-to-xml",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "xml-to-json",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/basics/xml-to-json-transform",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"basics",
+						"xml-to-json-transform"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

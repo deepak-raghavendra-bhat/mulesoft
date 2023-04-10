@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="be24f0d4-2477-41e5-a093-b11573abc815" basePath="/basics" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="mule-basic-transformerFlow" doc:id="38bf381d-f638-4155-9f22-75645f9cf4a7" >
+		<http:listener doc:name="Listener" doc:id="83def60f-5d1b-4001-9251-1d252baa89dd" config-ref="HTTP_Listener_config" path="/json-to-xml-transform"/>
+		<logger level="INFO" doc:name="Logger" doc:id="be695561-0753-403d-b7cc-ff20e75af411" message="#[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="f908bf56-7118-4b2c-b0bc-ea9a5215f939" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+	CATALOG: {
+		(payload.CATALOG.CD map ( cD , indexOfCD ) -> {
+			CD: {
+				TITLE: cD.TITLE,
+				ARTIST: cD.ARTIST,
+				COUNTRY: cD.COUNTRY,
+				COMPANY: cD.COMPANY,
+				PRICE: cD.PRICE,
+				YEAR: cD.YEAR
+			}
+		})
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="7e88ecd1-dfa1-4703-b71d-f6bd3cb9347e" message="#[payload]"/>
+	</flow>
+</mule>
