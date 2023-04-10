@@ -2,6 +2,12 @@
   "sampleData": {
     "38b01c78-d563-4c18-a25a-7ee2b742beba": {
       "payload": "sample_data/java.dwl"
+    },
+    "25bec062-862d-44e8-aaea-c7441b5991f6": {
+      "payload": "sample_data/book.xml"
+    },
+    "3d1dda2f-43a6-4ee0-96b6-d1f3e6cccd27": {
+      "payload": "sample_data/excel.xlsx"
     }
   }
 }

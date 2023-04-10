@@ -27,6 +27,56 @@ type md_emp_json = {|
 
 ]]></types:shape>
     </types:type>
+    <types:type name="md-book-xml" format="xml">
+      <types:example format="xml" element="book" location="examples/book.xml"/>
+    </types:type>
+    <types:type name="md-book-json" format="json">
+      <types:shape format="weave" example="examples/book.json"><![CDATA[%dw 2.0
+
+type md_book_json = {|
+  item: {|
+    "type": String, 
+    price: Number {"typeId": "int"}, 
+    properties: {|
+      title: String, 
+      author: Array<String>, 
+      year: Number {"typeId": "int"}, 
+      lungage: String
+    |}
+  |}
+|} {"example": "{\\\"item\\\":{\\\"type\\\":\\\"book\\\",\\\"price\\\":30,\\\"properties\\\":{\\\"title\\\":\\\"Everyday Italian\\\",\\\"author\\\":[\\\"Giada De Laurentiis\\\"],\\\"year\\\":2005,\\\"lungage\\\":\\\"en\\\"}}}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="md-emp-csv" format="csv">
+      <types:shape format="weave" example="examples/employee.csv"><![CDATA[%dw 2.0
+
+type md_emp_csv = Array<{|  empID: String,   empName: String,   empEmail: String,   empStatus: String|}> {"isQuotedString": "false",
+"header": "true",
+"headerLineNumber": "0"}
+
+]]></types:shape>
+      <types:properties>
+        <types:property name="headerLineNumber" value="0"/>
+        <types:property name="header" value="true"/>
+        <types:property name="isQuotedString" value="false"/>
+      </types:properties>
+    </types:type>
+    <types:type name="md-emp-xlsx" format="excel">
+      <types:shape format="weave"><![CDATA[%dw 2.0
+
+type md_emp_xlsx = {|
+  emp?: Array<{|    empID: String,     empName: String,     empEmail: String,     empStatus: String  |}>
+|}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="md-emp-xml" format="xml">
+      <types:example format="xml" element="root" location="examples/employee.xml"/>
+    </types:type>
+    <types:type name="md-emp-schema" format="xml">
+      <types:shape format="xml-schema" element="employee" location="schemas/employee_schema.xsd"/>
+    </types:type>
   </types:catalog>
   <types:enrichment select="#f908bf56-7118-4b2c-b0bc-ea9a5215f939">
     <types:processor-declaration>
@@ -52,6 +102,62 @@ type md_emp_json = {|
       <types:output-event>
         <types:message>
           <types:payload type="md-emp-json"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#25bec062-862d-44e8-aaea-c7441b5991f6">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="md-book-xml"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="md-book-json"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#b8adf7a8-8591-452b-8f11-dd1319884359">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="md-book-json"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="md-book-xml"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#7557b44b-9656-422b-9dfd-917ed4b576a9">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="md-emp-json"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="md-emp-csv"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#3d1dda2f-43a6-4ee0-96b6-d1f3e6cccd27">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="md-emp-xlsx"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="md-emp-schema"/>
         </types:message>
       </types:output-event>
     </types:processor-declaration>
