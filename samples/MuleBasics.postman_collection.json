@@ -241,9 +241,21 @@
 		},
 		{
 			"name": "xml-to-json",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<CATALOG>\r\n  <CD>\r\n    <TITLE>Empire Burlesque</TITLE>\r\n    <ARTIST>Bob Dylan</ARTIST>\r\n    <COUNTRY>USA</COUNTRY>\r\n    <COMPANY>Columbia</COMPANY>\r\n    <PRICE>10.90</PRICE>\r\n    <YEAR>1985</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Hide your heart</TITLE>\r\n    <ARTIST>Bonnie Tyler</ARTIST>\r\n    <COUNTRY>UK</COUNTRY>\r\n    <COMPANY>CBS Records</COMPANY>\r\n    <PRICE>9.90</PRICE>\r\n    <YEAR>1988</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Greatest Hits</TITLE>\r\n    <ARTIST>Dolly Parton</ARTIST>\r\n    <COUNTRY>USA</COUNTRY>\r\n    <COMPANY>RCA</COMPANY>\r\n    <PRICE>9.90</PRICE>\r\n    <YEAR>1982</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Still got the blues</TITLE>\r\n    <ARTIST>Gary Moore</ARTIST>\r\n    <COUNTRY>UK</COUNTRY>\r\n    <COMPANY>Virgin records</COMPANY>\r\n    <PRICE>10.20</PRICE>\r\n    <YEAR>1990</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Eros</TITLE>\r\n    <ARTIST>Eros Ramazzotti</ARTIST>\r\n    <COUNTRY>EU</COUNTRY>\r\n    <COMPANY>BMG</COMPANY>\r\n    <PRICE>9.90</PRICE>\r\n    <YEAR>1997</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>One night only</TITLE>\r\n    <ARTIST>Bee Gees</ARTIST>\r\n    <COUNTRY>UK</COUNTRY>\r\n    <COMPANY>Polydor</COMPANY>\r\n    <PRICE>10.90</PRICE>\r\n    <YEAR>1998</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Sylvias Mother</TITLE>\r\n    <ARTIST>Dr.Hook</ARTIST>\r\n    <COUNTRY>UK</COUNTRY>\r\n    <COMPANY>CBS</COMPANY>\r\n    <PRICE>8.10</PRICE>\r\n    <YEAR>1973</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Maggie May</TITLE>\r\n    <ARTIST>Rod Stewart</ARTIST>\r\n    <COUNTRY>UK</COUNTRY>\r\n    <COMPANY>Pickwick</COMPANY>\r\n    <PRICE>8.50</PRICE>\r\n    <YEAR>1990</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Romanza</TITLE>\r\n    <ARTIST>Andrea Bocelli</ARTIST>\r\n    <COUNTRY>EU</COUNTRY>\r\n    <COMPANY>Polydor</COMPANY>\r\n    <PRICE>10.80</PRICE>\r\n    <YEAR>1996</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>When a man loves a woman</TITLE>\r\n    <ARTIST>Percy Sledge</ARTIST>\r\n    <COUNTRY>USA</COUNTRY>\r\n    <COMPANY>Atlantic</COMPANY>\r\n    <PRICE>8.70</PRICE>\r\n    <YEAR>1987</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Black angel</TITLE>\r\n    <ARTIST>Savage Rose</ARTIST>\r\n    <COUNTRY>EU</COUNTRY>\r\n    <COMPANY>Mega</COMPANY>\r\n    <PRICE>10.90</PRICE>\r\n    <YEAR>1995</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>1999 Grammy Nominees</TITLE>\r\n    <ARTIST>Many</ARTIST>\r\n    <COUNTRY>USA</COUNTRY>\r\n    <COMPANY>Grammy</COMPANY>\r\n    <PRICE>10.20</PRICE>\r\n    <YEAR>1999</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>For the good times</TITLE>\r\n    <ARTIST>Kenny Rogers</ARTIST>\r\n    <COUNTRY>UK</COUNTRY>\r\n    <COMPANY>Mucik Master</COMPANY>\r\n    <PRICE>8.70</PRICE>\r\n    <YEAR>1995</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Big Willie style</TITLE>\r\n    <ARTIST>Will Smith</ARTIST>\r\n    <COUNTRY>USA</COUNTRY>\r\n    <COMPANY>Columbia</COMPANY>\r\n    <PRICE>9.90</PRICE>\r\n    <YEAR>1997</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Tupelo Honey</TITLE>\r\n    <ARTIST>Van Morrison</ARTIST>\r\n    <COUNTRY>UK</COUNTRY>\r\n    <COMPANY>Polydor</COMPANY>\r\n    <PRICE>8.20</PRICE>\r\n    <YEAR>1971</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Soulsville</TITLE>\r\n    <ARTIST>Jorn Hoel</ARTIST>\r\n    <COUNTRY>Norway</COUNTRY>\r\n    <COMPANY>WEA</COMPANY>\r\n    <PRICE>7.90</PRICE>\r\n    <YEAR>1996</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>The very best of</TITLE>\r\n    <ARTIST>Cat Stevens</ARTIST>\r\n    <COUNTRY>UK</COUNTRY>\r\n    <COMPANY>Island</COMPANY>\r\n    <PRICE>8.90</PRICE>\r\n    <YEAR>1990</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Stop</TITLE>\r\n    <ARTIST>Sam Brown</ARTIST>\r\n    <COUNTRY>UK</COUNTRY>\r\n    <COMPANY>A and M</COMPANY>\r\n    <PRICE>8.90</PRICE>\r\n    <YEAR>1988</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Bridge of Spies</TITLE>\r\n    <ARTIST>T'Pau</ARTIST>\r\n    <COUNTRY>UK</COUNTRY>\r\n    <COMPANY>Siren</COMPANY>\r\n    <PRICE>7.90</PRICE>\r\n    <YEAR>1987</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Private Dancer</TITLE>\r\n    <ARTIST>Tina Turner</ARTIST>\r\n    <COUNTRY>UK</COUNTRY>\r\n    <COMPANY>Capitol</COMPANY>\r\n    <PRICE>8.90</PRICE>\r\n    <YEAR>1983</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Midt om natten</TITLE>\r\n    <ARTIST>Kim Larsen</ARTIST>\r\n    <COUNTRY>EU</COUNTRY>\r\n    <COMPANY>Medley</COMPANY>\r\n    <PRICE>7.80</PRICE>\r\n    <YEAR>1983</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Pavarotti Gala Concert</TITLE>\r\n    <ARTIST>Luciano Pavarotti</ARTIST>\r\n    <COUNTRY>UK</COUNTRY>\r\n    <COMPANY>DECCA</COMPANY>\r\n    <PRICE>9.90</PRICE>\r\n    <YEAR>1991</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>The dock of the bay</TITLE>\r\n    <ARTIST>Otis Redding</ARTIST>\r\n    <COUNTRY>USA</COUNTRY>\r\n    <COMPANY>Stax Records</COMPANY>\r\n    <PRICE>7.90</PRICE>\r\n    <YEAR>1968</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Picture book</TITLE>\r\n    <ARTIST>Simply Red</ARTIST>\r\n    <COUNTRY>EU</COUNTRY>\r\n    <COMPANY>Elektra</COMPANY>\r\n    <PRICE>7.20</PRICE>\r\n    <YEAR>1985</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Red</TITLE>\r\n    <ARTIST>The Communards</ARTIST>\r\n    <COUNTRY>UK</COUNTRY>\r\n    <COMPANY>London</COMPANY>\r\n    <PRICE>7.80</PRICE>\r\n    <YEAR>1987</YEAR>\r\n  </CD>\r\n  <CD>\r\n    <TITLE>Unchain my heart</TITLE>\r\n    <ARTIST>Joe Cocker</ARTIST>\r\n    <COUNTRY>USA</COUNTRY>\r\n    <COMPANY>EMI</COMPANY>\r\n    <PRICE>8.20</PRICE>\r\n    <YEAR>1987</YEAR>\r\n  </CD>\r\n</CATALOG>\r\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://localhost:8081/basics/xml-to-json-transform",
 					"protocol": "http",
@@ -254,6 +266,164 @@
 					"path": [
 						"basics",
 						"xml-to-json-transform"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "json-Insert-into-DB",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"books\": {\r\n\t\t\"isbn\": \"3\",\r\n\t\t\"title\": \"Edition\",\r\n\t\t\"subtitle\": \"amming\",\r\n\t\t\"author\": \"Make\",\r\n\t\t\"published\": \"2019-12-04\",\r\n\t\t\"publisher\": \"arch\",\r\n\t\t\"pages\": \"4\",\r\n\t\t\"description\": \"Java\",\r\n\t\t\"website\": \"http://elntjav\"\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8091/db/json-insert-db-books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"db",
+						"json-insert-db-books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "xml-update-DB",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<books>\r\n  <isbn>2</isbn>\r\n  \r\n  <pages>15</pages>\r\n \r\n</books>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8091/db/xml-update-db-books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"db",
+						"xml-update-db-books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "qp-select-DB",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8091/db/qp-select-db-books?author=Marike",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"db",
+						"qp-select-db-books"
+					],
+					"query": [
+						{
+							"key": "author",
+							"value": "Marike"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "select-DB",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<books>\r\n  <isbn>2</isbn>\r\n  \r\n  <pages>15</pages>\r\n \r\n</books>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8091/db/select-db-books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"db",
+						"select-db-books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "up-delete-DB Copy",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<books>\r\n  <isbn>2</isbn>\r\n  \r\n  <pages>15</pages>\r\n \r\n</books>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8091/db/up-delete-db-books/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"db",
+						"up-delete-db-books",
+						"3"
 					]
 				}
 			},

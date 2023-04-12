@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="d2a097ab-5671-4f2c-bcf9-a49bb46a9ac2" basePath="/db" >
+		<http:listener-connection host="0.0.0.0" port="8091" />
+	</http:listener-config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="00b78114-8ee1-401b-a6a3-0a96aefceccf" >
+		<db:oracle-connection host="localhost" user="system" password="welcome1" instance="xe" />
+	</db:config>
+	<flow name="json-insert-db-booksFlow" doc:id="0f378580-8c2d-4756-b566-baeb9dc8acce" >
+		<http:listener doc:name="Listener" doc:id="de19d98b-65d0-4c95-a1fb-5ad9fc502579" config-ref="HTTP_Listener_config" path="/json-insert-db-books" allowedMethods="POST"/>
+		<logger level="INFO" doc:name="Logger" doc:id="d20fee70-f45f-4c0b-9d4a-7e9c8f62cb5e" message="Insert DB started"/>
+		<db:insert doc:name="Insert books to DB" doc:id="9b1af6ff-0855-4536-ab92-7221ef2e200e" config-ref="Database_Config">
+			<db:sql ><![CDATA[insert into mule_books (isbn,title,subtitle,author,published,publisher,pages,description,website) values(:isbn,:title,:subtitle,:author,:published,:publisher,:pages,:description,:website)]]></db:sql>
+			<db:input-parameters ><![CDATA[#[output application/java
+---
+{
+	website: payload.books.website,
+	pages: payload.books.pages as String,
+	author: payload.books.author,
+	isbn: payload.books.isbn,
+	subtitle: payload.books.subtitle,
+	publisher: payload.books.publisher,
+	description: payload.books.description,
+	published: payload.books.published,
+	title: payload.books.title
+}]]]></db:input-parameters>
+		</db:insert>
+		<ee:transform doc:name="setResponse" doc:id="55b4772f-c4bc-493b-8ce3-86b96f4afabd" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	code: 200,
+	message: "Worked"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="a0d00dea-a6f1-4031-963e-72e3e7c56fdb" message="DB Insert complete"/>
+	</flow>
+	<flow name="xml-update-db-booksFlow" doc:id="50d51245-49ec-431b-ade8-11891e32b306" >
+		<http:listener doc:name="Listener" doc:id="34c60923-13f5-49ec-912c-6d89a8c1043b" config-ref="HTTP_Listener_config" path="/xml-update-db-books" allowedMethods="PUT"/>
+		<logger level="INFO" doc:name="Logger" doc:id="4e2e5d38-b49c-42ec-a671-052e4ba344b3" message="Select DB started" />
+		<db:update doc:name="Update" doc:id="4532cd4a-8085-4f39-9ba4-5da5415e9ff5" config-ref="Database_Config">
+			<db:sql ><![CDATA[update mule_books set pages=:pages where isbn=:isbn]]></db:sql>
+			<db:input-parameters ><![CDATA[#[output application/java
+---
+{
+	pages: payload.books.pages as String,
+	isbn: payload.books.isbn as String
+}]]]></db:input-parameters>
+		</db:update>
+		<ee:transform doc:name="setResponse" doc:id="5e8cc4e2-e08b-4b28-aaf8-d84438f9d72a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+	response: {
+		code: 200,
+		msg: "Worked"
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger1" doc:id="b4cfdf2e-b5b3-44bc-8790-ec1d25f10a77" message="DB Update complete" />
+	</flow>
+	<flow name="qp-select-db-booksFlow" doc:id="2fc0568b-6312-4418-bdd3-80099e48ec59" >
+		<http:listener doc:name="Listener" doc:id="a96fe75c-3e13-48b0-97d7-e7fb626c96f7" config-ref="HTTP_Listener_config" path="/qp-select-db-books" allowedMethods="GET"/>
+		<logger level="INFO" doc:name="Logger" doc:id="eabc8888-8583-4de8-8f96-74c9ab4d859a" message="Insert DB started" />
+		<db:select doc:name="Select" doc:id="a8b6e568-0db0-4a59-9cb4-b5f21a0b6002" config-ref="Database_Config">
+			<db:sql><![CDATA[select isbn,title,subtitle,author,published,publisher,pages,description,website from mule_books where author=:author]]></db:sql>
+			<db:input-parameters><![CDATA[#[{author: attributes.queryParams.author}]]]></db:input-parameters>
+		</db:select>
+		<ee:transform doc:name="setResponse" doc:id="e8a1fd39-c3c2-423d-8795-de96c1e46748" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger1" doc:id="c01b94ec-b918-4ebb-90ed-b8c68b11da98" message="DB select complete" />
+	</flow>
+	<flow name="up-delete-db-booksFlow" doc:id="7bd28ca3-9fa6-4845-9cff-656a3b33e17d" >
+		<http:listener doc:name="Listener" doc:id="820beb0a-d6e7-44f3-bc17-43456655086e" config-ref="HTTP_Listener_config" path="/up-delete-db-books/{isbn}" allowedMethods="DELETE" />
+		<logger level="INFO" doc:name="Logger" doc:id="818457d0-4e54-460f-bd2d-da64e341cfd2" message="delete DB started" />
+		<db:stored-procedure doc:name="Stored procedure" doc:id="54a8a2c7-d9c7-4ac1-a645-c64740b264e3" config-ref="Database_Config">
+			<db:sql ><![CDATA[{call Delete_mule_books(:isbn)}]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+isbn: attributes.uriParams.isbn
+}]]]></db:input-parameters>
+		</db:stored-procedure>
+		<ee:transform doc:name="setResponse" doc:id="182fa37e-2c7a-403d-9529-658ab5f88623" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	code: 200,
+	message: "Deleted"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger1" doc:id="29a77de5-0ec2-45b3-b487-bc0387e7b1da" message="DB delete complete" />
+	</flow>
+	<flow name="select-db-booksFlow" doc:id="fc42cd30-0522-4b79-9244-243767491922" >
+		<http:listener doc:name="Listener" doc:id="4a6a31ad-3df9-4083-bd7d-accb0bdb6fa7" config-ref="HTTP_Listener_config" path="/select-db-books" allowedMethods="GET" />
+		<logger level="INFO" doc:name="Logger" doc:id="95320a35-5fe6-434f-a30b-dc31e112a58a" message="Insert DB started" />
+		<db:select doc:name="Select" doc:id="0a7864fe-5314-4260-a618-67006fa13d75" config-ref="Database_Config" >
+			<db:sql ><![CDATA[select isbn,title,subtitle,author,published,publisher,pages,description,website from mule_books]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="setResponse" doc:id="cb480769-b823-4056-a241-67997fed0fe2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	books: payload map ( payload01 , indexOfPayload01 ) -> {
+		isbn: payload01.isbn,
+		title: payload01.title,
+		subtitle: payload01.subtitle,
+		author: payload01.author,
+		published: payload01.published,
+		publisher: payload01.publisher,
+		pages: payload01.pages,
+		description: payload01.description,
+		website: payload01.website
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger1" doc:id="26783400-4542-4f9b-bd0e-4f0d1fa82b09" message="DB select complete" />
+	</flow>
+</mule>
