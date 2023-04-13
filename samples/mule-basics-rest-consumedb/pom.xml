@@ -36,6 +36,7 @@
 							<artifactId>ojdbc6</artifactId>
 						</sharedLibrary>
 					</sharedLibraries>
+					<classifier>mule-application</classifier>
 				</configuration>
 			</plugin>
 		</plugins>
