@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="25f15993-9beb-498a-aaf6-9b561eb87495" >
+		<http:listener-connection host="0.0.0.0" port="8092" />
+	</http:listener-config>
+	<flow name="testdeployFlow" doc:id="85711107-5625-4ae5-a4c5-7dab1924d7bd" >
+		<http:listener doc:name="Listener" doc:id="55d71168-fa6f-4d23-ba8e-ec1dc166f47f" config-ref="HTTP_Listener_config" path="/test">
+			<http:response statusCode="200" >
+				<http:body ><![CDATA[{
+"msg":"Working"
+}]]></http:body>
+			</http:response>
+		</http:listener>
+		<logger level="INFO" doc:name="Logger" doc:id="ca2f3ab9-4cd4-4175-8c0d-0bc98deb6197" message="#[payload]"/>
+	</flow>
+</mule>
